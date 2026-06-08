@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "public": true,
+  "public": "public",
   "buildCommand": "echo 'Static deployment with API'",
   "installCommand": "npm install",
   "routes": [
