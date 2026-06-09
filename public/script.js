@@ -218,9 +218,37 @@ if (scrollDownBtn) {
 }
 
 // Scroll reveal animation
+// const observerOptions = {
+//   threshold: 0.15,
+//   rootMargin: "0px 0px -120px 0px",
+// };
+
+// const revealObserver = new IntersectionObserver((entries) => {
+//   entries.forEach((entry) => {
+//     if (entry.isIntersecting) {
+//       entry.target.classList.add("active");
+//       revealObserver.unobserve(entry.target);
+//     }
+//   });
+// }, observerOptions);
+
+// // Observe all reveal elements and stagger child transitions
+// document.querySelectorAll(".reveal, .scroll-reveal").forEach((element) => {
+//   const children = Array.from(element.children);
+//   children.forEach((child, idx) => {
+//     child.style.transitionDelay = `${idx * 0.08}s`;
+//   });
+
+//   revealObserver.observe(element);
+// });
+
+const isMobile = window.innerWidth < 768;
+
 const observerOptions = {
-  threshold: 0.15,
-  rootMargin: "0px 0px -120px 0px",
+  threshold: isMobile ? 0.1 : 0.15,
+  rootMargin: isMobile
+    ? "0px 0px -60px 0px"
+    : "0px 0px -120px 0px",
 };
 
 const revealObserver = new IntersectionObserver((entries) => {
@@ -232,11 +260,13 @@ const revealObserver = new IntersectionObserver((entries) => {
   });
 }, observerOptions);
 
-// Observe all reveal elements and stagger child transitions
 document.querySelectorAll(".reveal, .scroll-reveal").forEach((element) => {
   const children = Array.from(element.children);
+
   children.forEach((child, idx) => {
-    child.style.transitionDelay = `${idx * 0.08}s`;
+    child.style.transitionDelay = isMobile
+      ? `${idx * 0.04}s`   // faster on mobile
+      : `${idx * 0.08}s`;
   });
 
   revealObserver.observe(element);
