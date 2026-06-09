@@ -48,6 +48,21 @@ const projectsData = [
       "Error handling and validation",
     ],
   },
+  {
+    title: "Job Portal",
+    description:
+      "A full-stack job portal web application that connects job seekers and employers for job posting, searching, and application management.",
+    image: "projects/jobportal.png",
+    tags: ["Node.js", "Express", "Javascript", "MongoDB"],
+    github: "#",
+    demo: "#",
+    features: [
+      "User authentication and role-based access control",
+      "Job posting and management system for employers",
+      "Job search, filtering, and application system",
+      "Application tracking with interview scheduling",
+    ],
+  },
 ];
 
 // Dark mode toggle
@@ -246,9 +261,7 @@ const isMobile = window.innerWidth < 768;
 
 const observerOptions = {
   threshold: isMobile ? 0.1 : 0.15,
-  rootMargin: isMobile
-    ? "0px 0px -60px 0px"
-    : "0px 0px -120px 0px",
+  rootMargin: isMobile ? "0px 0px -60px 0px" : "0px 0px -120px 0px",
 };
 
 const revealObserver = new IntersectionObserver((entries) => {
@@ -265,7 +278,7 @@ document.querySelectorAll(".reveal, .scroll-reveal").forEach((element) => {
 
   children.forEach((child, idx) => {
     child.style.transitionDelay = isMobile
-      ? `${idx * 0.04}s`   // faster on mobile
+      ? `${idx * 0.04}s` // faster on mobile
       : `${idx * 0.08}s`;
   });
 
