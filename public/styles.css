@@ -632,7 +632,16 @@ body::-webkit-scrollbar-thumb:hover {
 .project-links {
   display: flex;
   gap: 1rem;
-  margin-top: 1.5rem;
+  margin-top: auto;
+  padding-top: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.project-links a,
+.project-links button {
+  flex: 1;
+  min-height: 40px;
+  justify-content: center;
 }
 
 /* Contact Section */
@@ -736,7 +745,7 @@ body::-webkit-scrollbar-thumb:hover {
 
 /* Buttons */
 .btn {
-  display: inline-flex;
+  display: flex;
   align-items: center;
   gap: 0.5rem;
   padding: 0.75rem 1.5rem;
@@ -749,6 +758,7 @@ body::-webkit-scrollbar-thumb:hover {
   transition: var(--transition);
   text-align: center;
   justify-content: center;
+  white-space: nowrap;
 }
 
 .btn-primary {
@@ -781,6 +791,44 @@ body::-webkit-scrollbar-thumb:hover {
 .btn-sm {
   padding: 0.5rem 1rem;
   font-size: 0.875rem;
+}
+
+/* Footer */
+/* Scroll to Top Button */
+.scroll-to-top {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: var(--color-primary);
+  color: var(--color-primary-foreground);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 16px hsla(217, 91%, 60%, 0.3);
+  transition: var(--transition);
+  opacity: 0;
+  visibility: hidden;
+  z-index: 999;
+}
+
+.scroll-to-top.visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+.scroll-to-top:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px hsla(217, 91%, 60%, 0.4);
+}
+
+.scroll-to-top svg {
+  width: 24px;
+  height: 24px;
 }
 
 /* Footer */
@@ -1097,7 +1145,7 @@ body::-webkit-scrollbar-thumb:hover {
     height: 20px;
   }
 
-  .modal-body {
+  /* .modal-body {
     grid-template-columns: 1fr;
   }
 
@@ -1111,7 +1159,7 @@ body::-webkit-scrollbar-thumb:hover {
 
   .modal-actions {
     flex-direction: column;
-  }
+  } */
 
   .project-links {
     flex-wrap: wrap;
@@ -1120,5 +1168,287 @@ body::-webkit-scrollbar-thumb:hover {
   .btn-sm {
     font-size: 0.8125rem;
     padding: 0.4rem 0.85rem;
+  }
+
+  .scroll-to-top {
+    bottom: 1.5rem;
+    right: 1.5rem;
+    width: 45px;
+    height: 45px;
+  }
+}
+
+/* ----------------------------------------------------------- */
+
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition:
+    opacity 0.28s ease,
+    visibility 0.28s ease;
+}
+
+.modal.active {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.modal-backdrop {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(15, 23, 42, 0.75);
+  backdrop-filter: blur(6px);
+  opacity: 0;
+  transition: opacity 0.28s ease;
+}
+
+.modal.active .modal-backdrop {
+  opacity: 1;
+}
+
+.modal-content {
+  position: relative;
+  max-width: 1024px;
+  width: 100%;
+  max-height: 85vh;
+  background-color: var(--color-card);
+  border-radius: 1.25rem;
+  overflow: hidden;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  z-index: 1;
+  opacity: 0;
+  transform: translateY(24px) scale(0.98);
+  transition:
+    transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1),
+    opacity 0.35s ease;
+}
+
+.modal.active .modal-content {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+/* Redesigned Layout Body */
+.modal-body {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr; /* Image/Video slider takes slightly more weight */
+  max-height: 85vh;
+  height: 100%;
+}
+
+/* SLIDER ENGINE SYSTEM */
+.modal-slider-container {
+  position: relative;
+  background-color: #0f172a; /* Sleek dark frame for varied image ratios */
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  min-height: 400px;
+}
+
+.modal-slider {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.modal-slide {
+  min-width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-media {
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* Change to 'contain' if aspect ratios shouldn't be cropped */
+  max-height: 85vh;
+  display: block;
+}
+
+/* Slider Controls */
+.slider-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(4px);
+  color: white;
+  border: none;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  font-size: 1.25rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition);
+  z-index: 10;
+}
+
+.slider-btn:hover {
+  background-color: rgba(255, 255, 255, 0.9);
+  color: var(--color-foreground);
+}
+
+[data-theme="dark"] .slider-btn {
+  background-color: rgba(139, 173, 226, 0.3);
+  color: hsl(217, 91%, 60%);
+}
+
+[data-theme="dark"] .slider-btn:hover {
+  background-color: rgba(139, 173, 226, 0.8);
+  color: hsl(0, 0%, 100%);
+}
+
+.prev-btn {
+  left: 1rem;
+}
+.next-btn {
+  right: 1rem;
+}
+
+.slider-dots {
+  position: absolute;
+  bottom: 1.25rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 0.5rem;
+  z-index: 10;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.4);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.dot.active {
+  background-color: #ffffff;
+  width: 20px;
+  border-radius: 4px;
+}
+
+[data-theme="dark"] .dot {
+  background-color: rgba(139, 173, 226, 0.4);
+}
+
+[data-theme="dark"] .dot.active {
+  background-color: hsl(217, 91%, 60%);
+}
+
+/* Content Panel Styles */
+.modal-details {
+  padding: 2.5rem;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  max-height: 85vh;
+}
+
+/* Custom Scrollbars for Text Window */
+.modal-details::-webkit-scrollbar {
+  width: 6px;
+}
+.modal-details::-webkit-scrollbar-thumb {
+  background-color: var(--color-border);
+  border-radius: 3px;
+}
+
+.modal-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+  letter-spacing: -0.02em;
+  color: var(--color-foreground);
+}
+
+.modal-description {
+  color: var(--color-muted-foreground);
+  line-height: 1.7;
+  margin-bottom: 2rem;
+  font-size: 0.95rem;
+}
+
+.modal-section {
+  margin-bottom: 1.75rem;
+}
+
+.modal-section-title {
+  font-size: 1rem;
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--color-foreground);
+}
+
+/* Standardized Actions Utility */
+.modal-actions {
+  display: flex;
+  gap: 1rem;
+  margin-top: auto; /* Pushes action buttons cleanly to bottom */
+  padding-top: 1.5rem;
+}
+
+/* RESPONSIVE BREAKPOINT SYSTEM */
+@media (max-width: 768px) {
+  .modal {
+    padding: 0.5rem;
+  }
+
+  .modal-content {
+    max-height: 95vh;
+  }
+
+  .modal-body {
+    grid-template-columns: 1fr; /* Switch to a stacked column structure */
+    max-height: 95vh;
+    overflow-y: auto;
+  }
+
+  .modal-slider-container {
+    min-height: 260px;
+    height: 260px; /* Fixed height ratio block on mobile viewports */
+  }
+
+  .modal-media {
+    max-height: 260px;
+  }
+
+  .modal-details {
+    padding: 1.5rem;
+    overflow-y: visible; /* Rely on container wrapping structural scroll */
+    max-height: none;
+  }
+
+  .modal-title {
+    font-size: 1.5rem;
+  }
+
+  .modal-actions {
+    flex-direction: column;
+  }
+
+  .modal-close {
+    background-color: white; /* Contrast protection on smaller layouts */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   }
 }

@@ -4,7 +4,11 @@ const projectsData = [
     title: "E-Commerce Platform",
     description:
       "Full-stack online store with payment integration, inventory management, and admin dashboard.",
-    image: "projects/ecommerce.jpg",
+    images: [
+      "projects/ecommerce.jpg",
+      "projects/jobportal-1.png",
+      "projects/jobportal-2.png",
+    ],
     tags: ["React", "Node.js", "PostgreSQL", "Stripe"],
     github: "#",
     demo: "#",
@@ -20,7 +24,11 @@ const projectsData = [
     title: "Task Management App",
     description:
       "Collaborative project management tool with real-time updates and team collaboration features.",
-    image: "projects/taskmanager.jpg",
+    images: [
+      "projects/taskmanager.jpg",
+      "projects/jobportal-1.png",
+      "projects/jobportal-2.png",
+    ],
     tags: ["Next.js", "TypeScript", "Supabase", "Tailwind"],
     github: "#",
     demo: "#",
@@ -36,7 +44,11 @@ const projectsData = [
     title: "Social Media API",
     description:
       "RESTful API service with authentication, rate limiting, and comprehensive documentation.",
-    image: "projects/api.jpg",
+    images: [
+      "projects/api.jpg",
+      "projects/jobportal-1.png",
+      "projects/jobportal-2.png",
+    ],
     tags: ["Node.js", "Express", "JWT", "Redis"],
     github: "#",
     demo: "#",
@@ -52,7 +64,11 @@ const projectsData = [
     title: "Job Portal",
     description:
       "A full-stack job portal web application that connects job seekers and employers for job posting, searching, and application management.",
-    image: "projects/jobportal.png",
+    images: [
+      "projects/jobportal.png",
+      "projects/jobportal-1.png",
+      "projects/jobportal-2.png",
+    ],
     tags: ["Node.js", "Express", "Javascript", "MongoDB"],
     github: "#",
     demo: "#",
@@ -297,9 +313,40 @@ document.querySelectorAll(".view-details-btn").forEach((btn) => {
     const projectIndex = parseInt(projectCard.getAttribute("data-project"));
     const project = projectsData[projectIndex];
 
-    // Populate modal
-    document.getElementById("modalImage").src = project.image;
-    document.getElementById("modalImage").alt = project.title;
+    // Dynamically generate slides from images array
+    const modalSlider = document.getElementById("modalSlider");
+    modalSlider.innerHTML = "";
+    project.images.forEach((imageSrc) => {
+      const slide = document.createElement("div");
+      slide.className = "modal-slide";
+      const img = document.createElement("img");
+      img.src = imageSrc;
+      img.alt = project.title;
+      img.className = "modal-media";
+      slide.appendChild(img);
+      modalSlider.appendChild(slide);
+    });
+
+    // Update slides variable and reset index
+    Object.defineProperty(document, "slides", {
+      get() {
+        return document.querySelectorAll(".modal-slide");
+      },
+      configurable: true,
+    });
+    currentIndex = 0;
+
+    // Dynamically generate dots
+    dotsContainer.innerHTML = "";
+    project.images.forEach((_, i) => {
+      const dot = document.createElement("div");
+      dot.classList.add("dot");
+      if (i === 0) dot.classList.add("active");
+      dot.addEventListener("click", () => goToSlide(i));
+      dotsContainer.appendChild(dot);
+    });
+
+    // Populate modal details
     document.getElementById("modalTitle").textContent = project.title;
     document.getElementById("modalDescription").textContent =
       project.description;
@@ -327,9 +374,15 @@ document.querySelectorAll(".view-details-btn").forEach((btn) => {
     document.getElementById("modalGithub").href = project.github;
     document.getElementById("modalDemo").href = project.demo;
 
+    // Update slider to show first slide
+    updateSlider();
+
     // Show modal
     modal.classList.add("active");
     document.body.style.overflow = "hidden";
+
+    // Start auto-slide
+    startAutoSlide();
   });
 });
 
@@ -337,6 +390,7 @@ document.querySelectorAll(".view-details-btn").forEach((btn) => {
 function closeModal() {
   modal.classList.remove("active");
   document.body.style.overflow = "";
+  stopAutoSlide();
 }
 
 modalClose.addEventListener("click", closeModal);
@@ -347,6 +401,79 @@ document.addEventListener("keydown", (e) => {
   if (e.key === "Escape" && modal.classList.contains("active")) {
     closeModal();
   }
+});
+
+const slider = document.getElementById("modalSlider");
+const prevBtn = document.getElementById("sliderPrev");
+const nextBtn = document.getElementById("sliderNext");
+const dotsContainer = document.getElementById("sliderDots");
+
+let currentIndex = 0;
+let autoSlideInterval = null;
+const AUTO_SLIDE_INTERVAL = 5000; // Auto-slide every 5 seconds
+
+function getSlides() {
+  return document.querySelectorAll(".modal-slide");
+}
+
+function getDots() {
+  return document.querySelectorAll(".dot");
+}
+
+function updateSlider() {
+  const slides = getSlides();
+  const dots = getDots();
+
+  slider.style.transform = `translateX(-${currentIndex * 100}%)`;
+  dots.forEach((dot, index) => {
+    dot.classList.toggle("active", index === currentIndex);
+  });
+
+  // Pause videos if sliding away from them to preserve audio processing
+  slides.forEach((slide, idx) => {
+    const vid = slide.querySelector("video");
+    if (vid && idx !== currentIndex) vid.pause();
+  });
+
+  // Restart auto-slide timer
+  clearInterval(autoSlideInterval);
+  startAutoSlide();
+}
+
+function goToSlide(index) {
+  const slides = getSlides();
+  currentIndex = index % slides.length;
+  updateSlider();
+}
+
+function startAutoSlide() {
+  const slides = getSlides();
+  if (slides.length <= 1) return;
+
+  autoSlideInterval = setInterval(() => {
+    currentIndex = (currentIndex + 1) % slides.length;
+    const dots = getDots();
+    dots.forEach((dot, index) => {
+      dot.classList.toggle("active", index === currentIndex);
+    });
+    slider.style.transform = `translateX(-${currentIndex * 100}%)`;
+  }, AUTO_SLIDE_INTERVAL);
+}
+
+function stopAutoSlide() {
+  clearInterval(autoSlideInterval);
+}
+
+nextBtn.addEventListener("click", () => {
+  const slides = getSlides();
+  currentIndex = (currentIndex + 1) % slides.length;
+  updateSlider();
+});
+
+prevBtn.addEventListener("click", () => {
+  const slides = getSlides();
+  currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+  updateSlider();
 });
 
 // Form submission
@@ -399,4 +526,24 @@ if (contactForm) {
 const yearElement = document.getElementById("year");
 if (yearElement) {
   yearElement.textContent = new Date().getFullYear();
+}
+
+// Scroll to Top Button
+const scrollToTopBtn = document.getElementById("scrollToTop");
+
+if (scrollToTopBtn) {
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > 300) {
+      scrollToTopBtn.classList.add("visible");
+    } else {
+      scrollToTopBtn.classList.remove("visible");
+    }
+  });
+
+  scrollToTopBtn.addEventListener("click", () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  });
 }
