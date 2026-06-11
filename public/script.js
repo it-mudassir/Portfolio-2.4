@@ -4,11 +4,7 @@ const projectsData = [
     title: "E-Commerce Platform",
     description:
       "Full-stack online store with payment integration, inventory management, and admin dashboard.",
-    images: [
-      "projects/ecommerce.jpg",
-      "projects/jobportal-1.png",
-      "projects/jobportal-2.png",
-    ],
+    images: ["projects/ecommerce.jpg"],
     tags: ["React", "Node.js", "PostgreSQL", "Stripe"],
     github: "#",
     demo: "#",
@@ -24,11 +20,7 @@ const projectsData = [
     title: "Task Management App",
     description:
       "Collaborative project management tool with real-time updates and team collaboration features.",
-    images: [
-      "projects/taskmanager.jpg",
-      "projects/jobportal-1.png",
-      "projects/jobportal-2.png",
-    ],
+    images: ["projects/taskmanager.jpg"],
     tags: ["Next.js", "TypeScript", "Supabase", "Tailwind"],
     github: "#",
     demo: "#",
@@ -44,11 +36,7 @@ const projectsData = [
     title: "Social Media API",
     description:
       "RESTful API service with authentication, rate limiting, and comprehensive documentation.",
-    images: [
-      "projects/api.jpg",
-      "projects/jobportal-1.png",
-      "projects/jobportal-2.png",
-    ],
+    images: ["projects/api.jpg"],
     tags: ["Node.js", "Express", "JWT", "Redis"],
     github: "#",
     demo: "#",
@@ -65,9 +53,15 @@ const projectsData = [
     description:
       "A full-stack job portal web application that connects job seekers and employers for job posting, searching, and application management.",
     images: [
-      "projects/jobportal.png",
       "projects/jobportal-1.png",
       "projects/jobportal-2.png",
+      "projects/jobportal-3.png",
+      "projects/jobportal-4.png",
+      "projects/jobportal-5.png",
+      "projects/jobportal-6.png",
+      "projects/jobportal-7.png",
+      "projects/jobportal-8.png",
+      "projects/jobportal-9.png",
     ],
     tags: ["Node.js", "Express", "Javascript", "MongoDB"],
     github: "#",

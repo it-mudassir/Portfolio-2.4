@@ -1448,7 +1448,7 @@ body::-webkit-scrollbar-thumb:hover {
   }
 
   .modal-close {
-    background-color: white; /* Contrast protection on smaller layouts */
+    background-color: #1e232a; /* Contrast protection on smaller layouts */
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   }
 }
