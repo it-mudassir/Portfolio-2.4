@@ -227,22 +227,24 @@ window.addEventListener("resize", updateActiveNav);
 updateActiveNav();
 
 // Smooth scroll for all navigation links
-const allLinks = document.querySelectorAll('a[href^="#"]');
-
-allLinks.forEach((link) => {
+document.querySelectorAll("a").forEach((link) => {
   link.addEventListener("click", (e) => {
+    const href = link.getAttribute("href");
+
+    // ✅ Only handle internal section links
+    if (!href || !href.startsWith("#") || href === "#") return;
+
     e.preventDefault();
-    const targetId = link.getAttribute("href");
 
-    if (targetId === "#") return;
+    const targetElement = document.querySelector(href);
 
-    const targetElement = document.querySelector(targetId);
     if (targetElement) {
       targetElement.scrollIntoView({ behavior: "smooth" });
 
       // Close mobile menu if open
       if (mobileMenu.classList.contains("active")) {
         mobileMenu.classList.remove("active");
+
         const spans = mobileMenuBtn.querySelectorAll("span");
         spans[0].style.transform = "none";
         spans[1].style.opacity = "1";
