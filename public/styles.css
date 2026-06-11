@@ -644,6 +644,70 @@ body::-webkit-scrollbar-thumb:hover {
   justify-content: center;
 }
 
+.hidden-card {
+  display: none !important;
+}
+
+.show-more-container,
+.projects-actions,
+.skills-actions {
+  margin-top: 2rem;
+  display: flex;
+  justify-content: center;
+}
+
+.show-more-btn {
+  min-width: 220px;
+  min-height: 3.4rem;
+  padding: 1rem 2.2rem;
+  font-size: 1rem;
+  border-radius: 999px;
+  border-radius: 999px;
+  border: none;
+  color: var(--color-primary-foreground);
+  background: linear-gradient(135deg, var(--color-primary), hsl(192, 100%, 50%));
+  box-shadow: 0 14px 30px hsla(217, 91%, 60%, 0.25);
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  font-weight: 700;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, background-position 0.5s ease;
+  background-size: 200% 200%;
+  background-position: 0% 50%;
+  position: relative;
+  overflow: hidden;
+}
+
+.show-more-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 20px 40px hsla(217, 91%, 60%, 0.3);
+  background-position: 100% 50%;
+}
+
+.show-more-btn::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at top left, rgba(255, 255, 255, 0.35), transparent 28%);
+  opacity: 0.45;
+  pointer-events: none;
+}
+
+.show-more-btn::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.35), transparent 60%);
+  transform: translateX(-100%);
+  animation: show-more-shine 2.8s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes show-more-shine {
+  to {
+    transform: translateX(100%);
+  }
+}
+
 /* Contact Section */
 .contact {
   background-color: var(--color-muted);
@@ -781,6 +845,21 @@ body::-webkit-scrollbar-thumb:hover {
 .btn-outline:hover {
   background-color: hsla(217, 91%, 60%, 0.05);
   border-color: var(--color-primary);
+}
+
+.btn.show-more-btn,
+.show-more-btn.btn {
+  background: linear-gradient(135deg, var(--color-primary), hsl(192, 100%, 50%));
+  color: var(--color-primary-foreground);
+  border: none;
+  box-shadow: 0 14px 30px hsla(217, 91%, 60%, 0.25);
+  background-size: 200% 200%;
+  background-position: 0% 50%;
+}
+
+.btn.show-more-btn:hover,
+.show-more-btn.btn:hover {
+  background-position: 100% 50%;
 }
 
 .btn-large {
@@ -971,6 +1050,12 @@ body::-webkit-scrollbar-thumb:hover {
   cursor: pointer;
   transition: var(--transition);
   z-index: 10;
+  color: var(--color-foreground);
+}
+
+[data-theme="dark"] .modal-close {
+  background-color: hsla(0, 0%, 100%, 0.08);
+  border-color: hsla(0, 0%, 100%, 0.15);
   color: var(--color-foreground);
 }
 

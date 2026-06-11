@@ -318,89 +318,213 @@ document.querySelectorAll(".reveal, .scroll-reveal").forEach((element) => {
 });
 
 // Project modal functionality
+const projectsGrid = document.getElementById("projectsGrid");
+const showMoreProjectsBtn = document.getElementById("showMoreProjects");
+let projectsExpanded = false;
+const PROJECTS_VISIBLE_COUNT = 3;
+const skillsGrid = document.getElementById("skillsGrid");
+const showMoreSkillsBtn = document.getElementById("showMoreSkills");
+let skillsExpanded = false;
+const SKILLS_VISIBLE_COUNT = 6;
+
+function createProjectCard(project, index) {
+  const card = document.createElement("div");
+  card.className = "project-card scroll-reveal";
+  card.dataset.project = index;
+  if (index >= PROJECTS_VISIBLE_COUNT && !projectsExpanded) {
+    card.classList.add("hidden-card");
+  }
+
+  const tagsHtml = project.tags
+    .map((tag) => `<span class="tag">${tag}</span>`)
+    .join("");
+
+  card.innerHTML = `
+    <div class="project-image">
+      <img src="${project.images[0] || ""}" alt="${project.title}" />
+      <div class="project-overlay"></div>
+    </div>
+    <div class="project-content">
+      <h3 class="project-title">${project.title}</h3>
+      <p class="project-description">${project.description}</p>
+      <div class="project-tags">${tagsHtml}</div>
+      <div class="project-links">
+        <a href="${project.github || "#"}" class="btn btn-outline btn-sm" ${project.github && project.github !== "#" ? 'target="_blank" rel="noopener noreferrer"' : ""}>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path>
+          </svg>
+          Code
+        </a>
+        <a href="${project.demo || "#"}" class="btn btn-primary btn-sm" ${project.demo && project.demo !== "#" ? 'target="_blank" rel="noopener noreferrer"' : ""}>
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+            <polyline points="15 3 21 3 21 9"></polyline>
+            <line x1="10" y1="14" x2="21" y2="3"></line>
+          </svg>
+          Demo
+        </a>
+        <button type="button" class="btn btn-outline btn-sm view-details-btn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"></circle>
+            <path d="m21 21-4.35-4.35"></path>
+          </svg>
+          Details
+        </button>
+      </div>
+    </div>`;
+
+  return card;
+}
+
+function renderProjects() {
+  if (!projectsGrid) return;
+  projectsGrid.innerHTML = "";
+
+  projectsData.forEach((project, index) => {
+    const card = createProjectCard(project, index);
+    projectsGrid.appendChild(card);
+    revealObserver.observe(card);
+  });
+
+  if (showMoreProjectsBtn) {
+    const shouldShow = projectsData.length > PROJECTS_VISIBLE_COUNT;
+    showMoreProjectsBtn.style.display = shouldShow ? "inline-flex" : "none";
+    showMoreProjectsBtn.textContent = projectsExpanded
+      ? "Show Less Projects"
+      : "Show More Projects";
+  }
+
+  attachProjectCardListeners();
+}
+
+function attachProjectCardListeners() {
+  if (!projectsGrid) return;
+
+  projectsGrid.querySelectorAll(".view-details-btn").forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      const projectCard = e.target.closest(".project-card");
+      const projectIndex = parseInt(projectCard.dataset.project, 10);
+      if (!Number.isNaN(projectIndex)) {
+        openProjectModal(projectIndex);
+      }
+    });
+  });
+}
+
+function openProjectModal(projectIndex) {
+  const project = projectsData[projectIndex];
+  if (!project) return;
+
+  const modalSlider = document.getElementById("modalSlider");
+  modalSlider.innerHTML = "";
+  project.images.forEach((imageSrc) => {
+    const slide = document.createElement("div");
+    slide.className = "modal-slide";
+    const img = document.createElement("img");
+    img.src = imageSrc;
+    img.alt = project.title;
+    img.className = "modal-media";
+    slide.appendChild(img);
+    modalSlider.appendChild(slide);
+  });
+
+  currentIndex = 0;
+  dotsContainer.innerHTML = "";
+  project.images.forEach((_, i) => {
+    const dot = document.createElement("div");
+    dot.classList.add("dot");
+    if (i === 0) dot.classList.add("active");
+    dot.addEventListener("click", () => goToSlide(i));
+    dotsContainer.appendChild(dot);
+  });
+
+  document.getElementById("modalTitle").textContent = project.title;
+  document.getElementById("modalDescription").textContent = project.description;
+
+  const modalTags = document.getElementById("modalTags");
+  modalTags.innerHTML = "";
+  project.tags.forEach((tag) => {
+    const span = document.createElement("span");
+    span.className = "tag";
+    span.textContent = tag;
+    modalTags.appendChild(span);
+  });
+
+  const modalFeatures = document.getElementById("modalFeatures");
+  modalFeatures.innerHTML = "";
+  project.features.forEach((feature) => {
+    const li = document.createElement("li");
+    li.textContent = feature;
+    modalFeatures.appendChild(li);
+  });
+
+  const modalGithub = document.getElementById("modalGithub");
+  const modalDemo = document.getElementById("modalDemo");
+  if (modalGithub) {
+    modalGithub.href = project.github || "#";
+    if (project.github && project.github !== "#") {
+      modalGithub.target = "_blank";
+      modalGithub.rel = "noopener noreferrer";
+    } else {
+      modalGithub.removeAttribute("target");
+      modalGithub.removeAttribute("rel");
+    }
+  }
+  if (modalDemo) {
+    modalDemo.href = project.demo || "#";
+    if (project.demo && project.demo !== "#") {
+      modalDemo.target = "_blank";
+      modalDemo.rel = "noopener noreferrer";
+    } else {
+      modalDemo.removeAttribute("target");
+      modalDemo.removeAttribute("rel");
+    }
+  }
+
+  updateSlider();
+  modal.classList.add("active");
+  document.body.style.overflow = "hidden";
+  startAutoSlide();
+}
+
+function updateSkillCards() {
+  if (!skillsGrid || !showMoreSkillsBtn) return;
+
+  const skillCards = [...skillsGrid.querySelectorAll(".skill-card")];
+  skillCards.forEach((card, index) => {
+    card.classList.toggle(
+      "hidden-card",
+      !skillsExpanded && index >= SKILLS_VISIBLE_COUNT,
+    );
+  });
+
+  const shouldShow = skillCards.length > SKILLS_VISIBLE_COUNT;
+  showMoreSkillsBtn.style.display = shouldShow ? "inline-flex" : "none";
+  showMoreSkillsBtn.textContent = skillsExpanded
+    ? "Show Less Skills"
+    : "Show More Skills";
+}
+
+renderProjects();
+updateSkillCards();
+
+if (showMoreProjectsBtn) {
+  showMoreProjectsBtn.addEventListener("click", () => {
+    projectsExpanded = !projectsExpanded;
+    renderProjects();
+  });
+}
+
+if (showMoreSkillsBtn) {
+  showMoreSkillsBtn.addEventListener("click", () => {
+    skillsExpanded = !skillsExpanded;
+    updateSkillCards();
+  });
+}
+
 const modal = document.getElementById("projectModal");
 const modalClose = document.getElementById("modalClose");
 const modalBackdrop = modal.querySelector(".modal-backdrop");
-
-// Open modal
-document.querySelectorAll(".view-details-btn").forEach((btn) => {
-  btn.addEventListener("click", (e) => {
-    const projectCard = e.target.closest(".project-card");
-    const projectIndex = parseInt(projectCard.getAttribute("data-project"));
-    const project = projectsData[projectIndex];
-
-    // Dynamically generate slides from images array
-    const modalSlider = document.getElementById("modalSlider");
-    modalSlider.innerHTML = "";
-    project.images.forEach((imageSrc) => {
-      const slide = document.createElement("div");
-      slide.className = "modal-slide";
-      const img = document.createElement("img");
-      img.src = imageSrc;
-      img.alt = project.title;
-      img.className = "modal-media";
-      slide.appendChild(img);
-      modalSlider.appendChild(slide);
-    });
-
-    // Update slides variable and reset index
-    Object.defineProperty(document, "slides", {
-      get() {
-        return document.querySelectorAll(".modal-slide");
-      },
-      configurable: true,
-    });
-    currentIndex = 0;
-
-    // Dynamically generate dots
-    dotsContainer.innerHTML = "";
-    project.images.forEach((_, i) => {
-      const dot = document.createElement("div");
-      dot.classList.add("dot");
-      if (i === 0) dot.classList.add("active");
-      dot.addEventListener("click", () => goToSlide(i));
-      dotsContainer.appendChild(dot);
-    });
-
-    // Populate modal details
-    document.getElementById("modalTitle").textContent = project.title;
-    document.getElementById("modalDescription").textContent =
-      project.description;
-
-    // Tags
-    const modalTags = document.getElementById("modalTags");
-    modalTags.innerHTML = "";
-    project.tags.forEach((tag) => {
-      const span = document.createElement("span");
-      span.className = "tag";
-      span.textContent = tag;
-      modalTags.appendChild(span);
-    });
-
-    // Features
-    const modalFeatures = document.getElementById("modalFeatures");
-    modalFeatures.innerHTML = "";
-    project.features.forEach((feature) => {
-      const li = document.createElement("li");
-      li.textContent = feature;
-      modalFeatures.appendChild(li);
-    });
-
-    // Links
-    document.getElementById("modalGithub").href = project.github;
-    document.getElementById("modalDemo").href = project.demo;
-
-    // Update slider to show first slide
-    updateSlider();
-
-    // Show modal
-    modal.classList.add("active");
-    document.body.style.overflow = "hidden";
-
-    // Start auto-slide
-    startAutoSlide();
-  });
-});
 
 // Close modal
 function closeModal() {
