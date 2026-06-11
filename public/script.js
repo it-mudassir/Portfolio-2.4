@@ -33,6 +33,28 @@ const projectsData = [
     ],
   },
   {
+    title: "E-Commerce Platform",
+    description:
+      "A modern e-commerce website with fully connected pages, smooth UI, and interactive shopping experience.",
+    images: [
+      "projects/ecom-1.png",
+      "projects/ecom-2.png",
+      "projects/ecom-3.png",
+      "projects/ecom-4.png",
+      "projects/ecom-5.png",
+      "projects/ecom-6.png",
+    ],
+    tags: ["Html", "CSS", "Javascript"],
+    github: "https://github.com/it-mudassir/E-commerce",
+    demo: "https://it-mudassir.github.io/E-commerce/index.html",
+    features: [
+      "Modern and responsive UI with smooth animations",
+      "Fully connected multi-page navigation system",
+      "Interactive shopping cart with localStorage support",
+      "Dynamic product display with filtering and search functionality",
+    ],
+  },
+  {
     title: "Social Media API",
     description:
       "RESTful API service with authentication, rate limiting, and comprehensive documentation.",
