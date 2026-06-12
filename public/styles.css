@@ -1,16 +1,18 @@
-/* Design System Variables */
 :root {
-  --color-background: hsl(0, 0%, 98%);
-  --color-foreground: hsl(215, 25%, 15%);
-  --color-primary: hsl(217, 91%, 60%);
-  --color-primary-foreground: hsl(0, 0%, 100%);
-  --color-muted: hsl(215, 20%, 95%);
-  --color-muted-foreground: hsl(215, 15%, 45%);
-  --color-border: hsl(215, 20%, 90%);
-  --color-card: hsl(0, 0%, 100%);
+  --color-background: hsl(260, 30%, 8%);
+  --color-foreground: hsl(0, 0%, 98%);
 
-  --shadow-soft: 0 4px 24px hsla(215, 25%, 15%, 0.08);
-  --shadow-glow: 0 8px 32px hsla(217, 91%, 60%, 0.15);
+  --color-primary: hsl(270, 90%, 65%); /* Vibrant purple */
+  --color-primary-foreground: hsl(0, 0%, 100%);
+
+  --color-muted: hsl(260, 25%, 15%);
+  --color-muted-foreground: hsl(260, 15%, 70%);
+
+  --color-border: hsl(260, 25%, 22%);
+  --color-card: hsl(260, 25%, 12%);
+
+  --shadow-soft: 0 6px 30px hsla(270, 90%, 65%, 0.15);
+  --shadow-glow: 0 0 30px hsla(270, 90%, 65%, 0.4);
 
   --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
