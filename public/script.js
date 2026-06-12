@@ -95,6 +95,29 @@ const projectsData = [
       "Application tracking with interview scheduling",
     ],
   },
+  {
+    title: "Resturant Site",
+    description:
+      "A premium, single-page website for an upscale restaurant featuring an interactive digital menu, reservation system, and smooth animations, optimized for serverless hosting on GitHub Pages.",
+    images: [
+      "projects/res-1.png",
+      "projects/res-2.png",
+      "projects/res-3.png",
+      "projects/res-4.png",
+      "projects/res-5.png",
+      "projects/res-6.png",
+      "projects/res-7.png",
+    ],
+    tags: ["Html", "CSS", "Javascript"],
+    github: "https://github.com/it-mudassir/Resturant",
+    demo: "https://it-mudassir.github.io/Resturant/",
+    features: [
+      "Serverless routing for instant, multi-page client navigation",
+      "Interactive digital menu with dynamic category filtering",
+      "Premium table reservation request system with confirmation overlays",
+      "Immersive visual media gallery with seamless lightbox viewing",
+    ],
+  },
 ];
 
 // Dark mode toggle
