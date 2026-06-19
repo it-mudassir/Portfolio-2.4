@@ -37,6 +37,7 @@ const projectsData = [
     description:
       "A modern e-commerce website with fully connected pages, smooth UI, and interactive shopping experience.",
     images: [
+      "projects/ecom.png",
       "projects/ecom-1.png",
       "projects/ecom-2.png",
       "projects/ecom-3.png",
@@ -100,6 +101,7 @@ const projectsData = [
     description:
       "A premium, single-page website for an upscale restaurant featuring an interactive digital menu, reservation system, and smooth animations, optimized for serverless hosting on GitHub Pages.",
     images: [
+      "projects/res.png",
       "projects/res-1.png",
       "projects/res-2.png",
       "projects/res-3.png",
