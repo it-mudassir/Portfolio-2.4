@@ -118,6 +118,29 @@ const projectsData = [
       "Immersive visual media gallery with seamless lightbox viewing",
     ],
   },
+  {
+    title: "Coffee & Co",
+    description:
+      "Coffee & Co — where rich flavors, cozy vibes, and handcrafted brews come together to create your perfect coffee experience.",
+    images: [
+      "projects/coffe-1.png",
+      "projects/coffe-2.png",
+      "projects/coffe-3.png",
+      "projects/coffe-4.png",
+      "projects/coffe-5.png",
+      "projects/coffe-6.png",
+    ],
+    tags: ["Html", "CSS", "Javascript"],
+    github: "https://github.com/it-mudassir/Resturant",
+    demo: "https://it-mudassir.github.io/Resturant/",
+    features: [
+      "Seamless responsive layout optimized for flawless cross-device experience",
+      "Elegant product showcase with refined hover interactions and micro-animations",
+      "Smart ordering interface with real-time customization and instant updates",
+      "Ambient UI transitions crafted for smooth and engaging user flow",
+      "High-performance architecture ensuring fast load times and fluid navigation",
+    ],
+  },
 ];
 
 // Dark mode toggle
