@@ -75,7 +75,7 @@ const projectsData = [
     description:
       "A full-stack job portal web application that connects job seekers and employers for job posting, searching, and application management.",
     images: [
-      "projects/jobportal-1.png",
+      "projects/jobportal.png",
       "projects/jobportal-2.png",
       "projects/jobportal-3.png",
       "projects/jobportal-4.png",
