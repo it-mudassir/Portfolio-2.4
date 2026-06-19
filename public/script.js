@@ -130,9 +130,9 @@ const projectsData = [
       "projects/coffe-5.png",
       "projects/coffe-6.png",
     ],
-    tags: ["Html", "CSS", "Javascript"],
-    github: "https://github.com/it-mudassir/Resturant",
-    demo: "https://it-mudassir.github.io/Resturant/",
+    tags: ["Html", "CSS", "Javascript", "Typescript"],
+    github: "https://github.com/it-mudassir/portfolio-spark",
+    demo: "https://portfolio-spark-zeta.vercel.app/",
     features: [
       "Seamless responsive layout optimized for flawless cross-device experience",
       "Elegant product showcase with refined hover interactions and micro-animations",
