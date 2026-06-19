@@ -123,6 +123,7 @@ const projectsData = [
     description:
       "Coffee & Co — where rich flavors, cozy vibes, and handcrafted brews come together to create your perfect coffee experience.",
     images: [
+      "projects/coffe.png",
       "projects/coffe-1.png",
       "projects/coffe-2.png",
       "projects/coffe-3.png",
