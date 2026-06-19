@@ -376,11 +376,11 @@ const showMoreSkillsBtn = document.getElementById("showMoreSkills");
 let skillsExpanded = false;
 const SKILLS_VISIBLE_COUNT = 6;
 
-function createProjectCard(project, index) {
+function createProjectCard(project, index, displayIndex) {
   const card = document.createElement("div");
   card.className = "project-card scroll-reveal";
   card.dataset.project = index;
-  if (index >= PROJECTS_VISIBLE_COUNT && !projectsExpanded) {
+  if (displayIndex >= PROJECTS_VISIBLE_COUNT && !projectsExpanded) {
     card.classList.add("hidden-card");
   }
 
@@ -429,11 +429,15 @@ function renderProjects() {
   if (!projectsGrid) return;
   projectsGrid.innerHTML = "";
 
-  projectsData.forEach((project, index) => {
-    const card = createProjectCard(project, index);
+  // Render newest projects first (latest on top)
+  let displayIndex = 0;
+  for (let i = projectsData.length - 1; i >= 0; i--) {
+    const project = projectsData[i];
+    const card = createProjectCard(project, i, displayIndex);
     projectsGrid.appendChild(card);
     revealObserver.observe(card);
-  });
+    displayIndex++;
+  }
 
   if (showMoreProjectsBtn) {
     const shouldShow = projectsData.length > PROJECTS_VISIBLE_COUNT;
