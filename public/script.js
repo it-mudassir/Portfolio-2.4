@@ -144,6 +144,28 @@ const projectsData = [
       "High-performance architecture ensuring fast load times and fluid navigation",
     ],
   },
+  {
+    title: "Aether",
+    description:
+      "Aether is a product/service-based business website designed to clearly communicate value, build trust, and drive user actions.",
+    images: [
+      "projects/aether.png",
+      "projects/aether-1.png",
+      "projects/aether-2.png",
+      "projects/aether-3.png",
+      "projects/aether-4.png",
+    ],
+    tags: ["Html", "CSS", "Javascript", "Typescript"],
+    github: "https://github.com/it-mudassir/premium-conversion-hub",
+    demo: "https://aether-pgzppcbe6-it-mudassir-ahmed.vercel.app/",
+    features: [
+      "Seamless responsive layout optimized for flawless cross-device experience",
+      "Elegant product showcase with refined hover interactions and micro-animations",
+      "Smart ordering interface with real-time customization and instant updates",
+      "Ambient UI transitions crafted for smooth and engaging user flow",
+      "High-performance architecture ensuring fast load times and fluid navigation",
+    ],
+  },
 ];
 
 // Dark mode toggle
