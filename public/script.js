@@ -171,7 +171,7 @@ const projectsData = [
     description:
       "Wavelength is a real-time collaboration studio that lets musicians create together from anywhere, as if they were in the same room.",
     images: [
-      "projects/wave.png",
+      "projects/wave.jpg",
       "projects/wave-1.png",
       "projects/wave-2.png",
       "projects/wave-3.png",
