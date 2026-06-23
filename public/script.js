@@ -166,6 +166,29 @@ const projectsData = [
       "High-performance architecture ensuring fast load times and fluid navigation",
     ],
   },
+  {
+    title: "Wavelength Studio",
+    description:
+      "Wavelength is a real-time collaboration studio that lets musicians create together from anywhere, as if they were in the same room.",
+    images: [
+      "projects/wave.png",
+      "projects/wave-1.png",
+      "projects/wave-2.png",
+      "projects/wave-3.png",
+      "projects/wave-4.png",
+      "projects/wave-5.png",
+    ],
+    tags: ["Html", "CSS", "Javascript", "Typescript"],
+    github: "https://github.com/it-mudassir/wavelength-studio",
+    demo: "https://wavelength-studio.vercel.app/",
+    features: [
+      "Real-time multi-track sync that lets every collaborator hear changes instantly, no lag",
+      "Live waveform visualizer with fluid, reactive animations tied to playback",
+      "Session timeline with version history and seamless undo across collaborators",
+      "Ambient UI transitions crafted for smooth and engaging user flow",
+      "High-performance architecture ensuring fast load times and fluid navigation",
+    ],
+  },
 ];
 
 // Dark mode toggle
