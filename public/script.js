@@ -189,6 +189,30 @@ const projectsData = [
       "High-performance architecture ensuring fast load times and fluid navigation",
     ],
   },
+  {
+    title: "Scoop & Dreams",
+    description:
+      "A delightful, modern ice cream website offering visually rich flavors, smooth user experience, and irresistible treats that turn every visit into a sweet story.",
+    images: [
+      "projects/ice.jpg",
+      "projects/ice-1.png",
+      "projects/ice-2.png",
+      "projects/ice-3.png",
+      "projects/ice-4.png",
+      "projects/ice-5.png",
+      "projects/ice-6.png",
+    ],
+    tags: ["Html", "CSS", "Javascript", "Typescript"],
+    github: "https://github.com/it-mudassir/Ice-Cream-Maker",
+    demo: "https://ice-cream-maker-ice-cream-parlour.vercel.app/",
+    features: [
+      "Interactive flavor browsing with dynamic filtering for a smooth and delightful selection experience",
+      "Visually rich product cards with soft gradients, hover effects, and quick add-to-cart actions",
+      "Responsive design system ensuring seamless browsing across desktop, tablet, and mobile devices",
+      "Elegant micro-interactions and transitions crafted for a premium, engaging user journey",
+      "Optimized performance delivering fast load times and buttery-smooth navigation throughout the site",
+    ],
+  },
 ];
 
 // Dark mode toggle
