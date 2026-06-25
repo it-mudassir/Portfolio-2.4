@@ -213,6 +213,29 @@ const projectsData = [
       "Optimized performance delivering fast load times and buttery-smooth navigation throughout the site",
     ],
   },
+  {
+    title: "Solar Bright",
+    description:
+      "A modern solar services website offering efficient, eco-friendly energy solutions with seamless user experience and smart savings insights.",
+    images: [
+      "projects/solar.png",
+      "projects/solar-1.png",
+      "projects/solar-2.png",
+      "projects/solar-3.png",
+      "projects/solar-4.png",
+      "projects/solar-5.png",
+    ],
+    tags: ["Html", "CSS", "Javascript", "Typescript"],
+    github: "https://github.com/it-mudassir/solar-services-website",
+    demo: "https://solar-services-website.vercel.app/",
+    features: [
+      "Smart solar cost calculator providing instant savings estimates based on user location and usage",
+      "Interactive system configurator allowing users to customize panels, batteries, and energy output in real time",
+      "Clean dashboard showcasing energy production, consumption, and environmental impact with live data visuals",
+      "Seamless booking system for consultations and installations with real-time availability and confirmations",
+      "High-performance, responsive design ensuring smooth navigation across all devices with fast load speeds",
+    ],
+  },
 ];
 
 // Dark mode toggle
