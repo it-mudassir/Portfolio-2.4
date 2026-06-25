@@ -194,7 +194,7 @@ const projectsData = [
     description:
       "A delightful, modern ice cream website offering visually rich flavors, smooth user experience, and irresistible treats that turn every visit into a sweet story.",
     images: [
-      "projects/ice.jpg",
+      "projects/ice.png",
       "projects/ice-1.png",
       "projects/ice-2.png",
       "projects/ice-3.png",
